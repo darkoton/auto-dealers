@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Auto dealers</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="content">
+      <section class="banner">
+        <div class="container">
+          <div class="banner__body">
+            <h1 class="banner__title">
+              Удаление авто из Carfast.express по VIN + Google
+            </h1>
+
+            <p class="banner__desc">
+              Укажите свой вин и узнайте список ресурсов где можно удалить историю вашего авто
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="search">
+        <div class="container">
+          <div class="search__body">
+            <form id="vinForm" class="search__form">
+              <div class="search__field">
+                <input placeholder="Введите VIN..." type="text" class="search__input" name="vin" id="vinInput">
+                <button type="submit" class="search__submit">Check Your Car</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="cars" style="display: none;">
+        <div class="container">
+          <div class="cars__body" render>
+          </div>
+        </div>
+      </section>
+
+      <section class="services" style="display: none;">
+        <div class="container">
+          <div class="services__body">
+            <div class="services__table">
+              <div class="services__head services__row">
+                <h2 class="services__title">2020 NISSAN ROGUE S</h2>
+                <div class="services__code">
+                  <span>VIN</span>
+                  <p>2C3CDXCT3JH194721</p>
+                </div>
+              </div>
+
+              <div class="services__select-all services__row">
+                <span>Выбрать все</span>
+                <label class="checkbox">
+                  <input id="select-all" type="checkbox" />
+                </label>
+              </div>
+
+
+
+              <ul class="services__list" render></ul>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="request" style="display: none;">
+        <div class="container">
+          <div class="request__body">
+            <h2 class="request__title"><span class="count">Выбрано 0 сайтов на сумму:</span> <span class="price"> 0
+                USD</span></h2>
+            <form action="index.php" method="POST" class="request__form">
+              <div class="request__fields">
+                <input name="name" type="text" placeholder="Имя" class="request__input">
+                <input name="phone" type="text" placeholder="Номер телефона" class="request__input">
+                <div class="request__select">
+                  <input type="text" disabled name="messanger" hidden style="display: none;">
+                  <button>
+                    <span class="placeholder">
+                      Выберите мессенджер
+                    </span>
+
+                    <span class="value" style="display: none;">
+                    </span>
+                  </button>
+
+                  <ul>
+                    <li>
+                      Telegram
+                    </li>
+                    <li>
+                      Viber
+                    </li>
+                    <li>
+                      WhatsApp
+                    </li>
+                  </ul>
+                </div>
+                <input name="email" type="text" placeholder="E-mail" class="request__input">
+              </div>
+
+              <button type="submit" onclick="alert('Дякуємо за заявку, з вами зв’яжеться менеджер')"
+                class="request__submit">Оставить заявку на удаление</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
