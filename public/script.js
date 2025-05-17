@@ -47,10 +47,20 @@ let table = []
 const vinForm = document.getElementById('vinForm');
 const vinInput = document.getElementById('vinInput');
 
-vinForm.addEventListener('submit', async function (e) {
+async function getData(e) {
   e.preventDefault();
+
+  document.getElementById('page-preloader').classList.remove('hidden')
+
   const vin = vinInput.value.trim();
-  if (!vin) return;
+
+  if (!vin) {
+    setTimeout(() => {
+      alert('Ошибка при загрузке данных')
+      document.getElementById('page-preloader').classList.add('hidden')
+    }, 300);
+    return
+  };
 
   try {
     const responseImgs = await fetch(`/api/vinimg?vin=${encodeURIComponent(vin)}`);
@@ -59,7 +69,11 @@ vinForm.addEventListener('submit', async function (e) {
     const responseTable = await fetch(`/api/table?vin=${encodeURIComponent(vin)}`);
     table = (await responseTable.json()).matches;
 
-    render(vin)
+    setTimeout(() => {
+      render(vin)
+      document.getElementById('page-preloader').classList.add('hidden')
+    }, 300);
+
   } catch (err) {
     alert('Ошибка при загрузке данных')
     console.error(err);
@@ -67,7 +81,9 @@ vinForm.addEventListener('submit', async function (e) {
     services.style.display = 'none'
     request.style.display = 'none'
   }
-});
+}
+
+vinForm.addEventListener('submit', getData);
 
 const carImg = (src) => `
             <div class="cars__car">
@@ -76,30 +92,60 @@ const carImg = (src) => `
             `
 
 const serviceItem = (service) => `
-              <li class="services__service services__row">
-                <div class="services__item">
+              <li class="services__service services__row row hidden-xs hidden-sm">
+                <div class="services__item col-md-2">
                   <img src="${service.img}" alt="">
                 </div>
 
-                <div class="services__item">
+                <div class="services__item col-md-2">
                   <p>${service.domain}</p>
                 </div>
 
-                <div class="services__item">
+                <div class="services__item col-md-2">
                   <p>${service.days} дней</p>
                 </div>
 
-                <div class="services__item">
+                <div class="services__item col-md-2">
                   <p>${service.source}</p>
                 </div>
 
-                <div class="services__item">
+                <div class="services__item col-md-2">
                   <p>${service.price} USD</p>
                 </div>
+                <div class="services__item col-md-2">
+                    <input id=${service.domain} type="checkbox" />
+                </div>
+              </li>
+              
+              <li class="services__service services__row services__row-mob visible-block hidden-md hidden-lg">
+                <div class="row">
+                  <div class="services__item col-xs-4">
+                    <img src="${service.img}" alt="">
+                  </div>
 
-                <label for=${service.domain} class="checkbox">
-                  <input id=${service.domain} type="checkbox" />
-                </label>
+                  <div class="services__item col-xs-4">
+                    <p>${service.domain}</p>
+                  </div>
+
+                  <div class="services__item col-xs-4">
+                    <input id=${service.domain} type="checkbox" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="services__item col-xs-4">
+                    <p>${service.days} дней</p>
+                  </div>
+
+                  <div class="services__item col-xs-4">
+                    <p>${service.source}</p>
+                  </div>
+
+                  <div class="services__item col-md-4">
+                    <p>${service.price} USD</p>
+                  </div>
+                </div>
+        
               </li>
 `
 
@@ -143,7 +189,7 @@ function render(vin) {
 
         })
       })
-    }, 100);
+    }, 200);
 
   } else {
     services.style.display = 'none'
@@ -163,4 +209,7 @@ document.querySelector('#select-all').addEventListener('change', (e) => {
   document.querySelectorAll('.services__service input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = selectServices.filter(s => s.domain === checkbox.id)[0]
   })
+
+  document.querySelector('.request__title .count').textContent = `Выбрано ${selectServices.length} сайтов на сумму:`
+  document.querySelector('.request__title .price').textContent = `${selectServices.reduce((prev, curr) => prev + curr.price, 0)} USD`
 })
