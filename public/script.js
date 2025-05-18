@@ -38,7 +38,7 @@ window.addEventListener('click', (e) => {
 ////////////////////////////////////////////
 
 const cars = document.querySelector('.cars')
-const services = document.querySelector('.services')
+const services = document.querySelector('.services__body')
 const request = document.querySelector('.request')
 
 let photos = []
@@ -55,10 +55,8 @@ async function getData(e) {
   const vin = vinInput.value.trim();
 
   if (!vin) {
-    setTimeout(() => {
-      alert('Ошибка при загрузке данных')
-      document.getElementById('page-preloader').classList.add('hidden')
-    }, 300);
+    alert('Ошибка при загрузке данных')
+    document.getElementById('page-preloader').classList.add('hidden')
     return
   };
 
@@ -69,10 +67,8 @@ async function getData(e) {
     const responseTable = await fetch(`/api/table?vin=${encodeURIComponent(vin)}`);
     table = (await responseTable.json()).matches;
 
-    setTimeout(() => {
-      render(vin)
-      document.getElementById('page-preloader').classList.add('hidden')
-    }, 300);
+    render(vin)
+    document.getElementById('page-preloader').classList.add('hidden')
 
   } catch (err) {
     alert('Ошибка при загрузке данных')
@@ -113,7 +109,7 @@ const serviceItem = (service) => `
                   <p>${service.price} USD</p>
                 </div>
                 <div class="services__item col-md-2">
-                    <input id=${service.domain} type="checkbox" />
+                    <input id=${service.domain} type="checkbox" class="custom-checkbox" />
                 </div>
               </li>
               
