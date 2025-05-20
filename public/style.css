@@ -136,8 +136,8 @@ body {
 
 .wrapper {
   min-width: 100%;
-  min-height: 100%;
-  padding: 64px 0;
+  /* min-height: 100%; */
+  padding: 40px 0;
 }
 
 ._container {
@@ -149,7 +149,7 @@ body {
 
 @media (max-width: 500px) {
   .wrapper {
-    padding: 25px 0;
+    padding: 20px 0;
   }
 
   ._container {
@@ -226,19 +226,26 @@ body {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  border: 1px solid #c69500;
+  overflow: hidden;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  overflow: hidden;
 }
 
-
+.search__field .form-group {
+  margin: 0;
+}
 
 .search__input {
   padding: 23.5px 32px;
   font-size: 16px;
   width: 284px;
+  border: 1px solid #c69500;
+  -webkit-border-radius: 8px 0 0 8px;
+  -moz-border-radius: 8px 0 0 8px;
+  border-radius: 8px 0 0 8px;
+  border-right-width: 0;
+  height: auto;
 
   &::-webkit-input-placeholder {
     color: #ababab;
@@ -421,7 +428,10 @@ body {
 
 .services__code p, .services__title {
   font-size: 18px;
+}
 
+.services__item a {
+  color: #000;
 }
 
 /* .services__select-all {

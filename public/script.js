@@ -18,8 +18,8 @@ selects.forEach(select => {
       valueLabel.textContent = value
       select.setAttribute('value', value.trim())
       select.querySelector('input').value = value
-      select.classList.toggle('remove')
       select.closest('.form-group').classList.remove('has-error')
+      select.classList.remove('active')
 
       if (valueLabel.textContent.trim().length) {
         placeholder.style.display = 'none'
@@ -49,6 +49,10 @@ let table = []
 const vinForm = document.getElementById('vinForm');
 const vinInput = document.getElementById('vinInput');
 
+vinInput.addEventListener('input', () => {
+  vinInput.closest('.form-group').classList.remove('has-error')
+})
+
 async function getData(e) {
   e.preventDefault();
 
@@ -57,8 +61,8 @@ async function getData(e) {
   const vin = vinInput.value.trim();
 
   if (!vin) {
-    alert('Ошибка при загрузке данных')
     document.getElementById('page-preloader').classList.add('hidden')
+    vinInput.closest('.form-group').classList.add('has-error')
     return
   };
 
@@ -73,7 +77,8 @@ async function getData(e) {
     document.getElementById('page-preloader').classList.add('hidden')
 
   } catch (err) {
-    alert('Ошибка при загрузке данных')
+    vinInput.closest('.form-group').classList.add('has-error')
+    document.getElementById('page-preloader').classList.add('hidden')
     console.error(err);
     cars.style.display = 'none'
     services.style.display = 'none'
@@ -96,7 +101,7 @@ const serviceItem = (service) => `
                 </div>
 
                 <div class="services__item col-md-2">
-                  <p>${service.domain}</p>
+                  <a target="_blank" href="https://${service.domain}">${service.domain}</a>
                 </div>
 
                 <div class="services__item col-md-2">
@@ -216,9 +221,8 @@ document.querySelectorAll('.request__input').forEach(input => {
 
 function valid() {
   document.querySelectorAll('.request__field[required]').forEach(field => {
-    if (
-      (field.value && !field.value.trim().length)
-      || !(field.getAttribute('value') && field.getAttribute('value').trim().length)) {
+    if ((field.nodeName === 'INPUT' && !field.value.trim().length)
+      || (field.nodeName === 'DIV' && !field.getAttribute('value').trim().length)) {
       field.closest('.form-group').classList.add('has-error')
     }
   }
