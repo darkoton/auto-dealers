@@ -101,7 +101,7 @@ const serviceItem = (service) => `
                 </div>
 
                 <div class="services__item col-md-2">
-                  <a target="_blank" href="https://${service.domain}">${service.domain}</a>
+                  <a target="_blank" href="${service.url}">${service.domain}</a>
                 </div>
 
                 <div class="services__item col-md-2">
@@ -127,7 +127,7 @@ const serviceItem = (service) => `
                   </div>
 
                   <div class="services__item col-xs-4">
-                    <p>${service.domain}</p>
+                    <a target="_blank" href="${service.url}">${service.domain}</a>
                   </div>
 
                   <div class="services__item col-xs-4">

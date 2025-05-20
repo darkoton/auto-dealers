@@ -33,8 +33,9 @@
             <form id="vinForm" class="search__form">
               <div class="search__field">
                 <div class="form-group">
-                  <input placeholder="Введите VIN..." type="text" class="search__input form-control" name="vin"
-                    id="vinInput">
+                  <input type="text" class="form-control search__input" id="vinInput" name="vin"
+                    placeholder="Введіть VIN" required pattern="[A-HJ-NPR-Z0-9]{17}"
+                    title="VIN повинен містити 17 символів (латинські літери та цифри, без I, O, Q)">
                 </div>
                 <button type="submit" class="search__submit">Check Your Car</button>
               </div>

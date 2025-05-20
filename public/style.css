@@ -345,7 +345,7 @@ body {
 
 .services {
   position: relative;
-  min-height: 50px;
+  /* min-height: 50px; */
 }
 
 .services ._container {
@@ -431,7 +431,7 @@ body {
 }
 
 .services__item a {
-  color: #000;
+  color: #337ab7;
 }
 
 /* .services__select-all {
@@ -906,6 +906,10 @@ body {
   .search__input {
     width: 250px;
     padding: 14.5px 25px;
+  }
+
+  .search__input:invalid {
+    border-color: #a94442;
   }
 
   .search__submit {
