@@ -192,7 +192,7 @@ body {
 }
 
 .search {
-  margin-bottom: 34px;
+  margin-bottom: 15px;
 }
 
 .search__body {
@@ -213,7 +213,7 @@ body {
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 22px 0;
+  padding: 10px 0;
 }
 
 .search__field {
@@ -341,6 +341,10 @@ body {
   min-height: 50px;
 }
 
+.services ._container {
+  max-width: 1000px;
+}
+
 .services__body {
   padding: 22px 0;
   overflow: auto;
@@ -366,6 +370,10 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 10px;
+}
+
+.services__subrow {
+  margin: 0;
 }
 
 .services__head {
@@ -523,6 +531,7 @@ body {
   gap: 32.75px;
   width: 100%;
   max-width: 600px;
+  padding: 0 5px;
 }
 
 
@@ -534,6 +543,11 @@ body {
   justify-content: center;
   row-gap: 31.5px;
   column-gap: 109px; */
+}
+
+.request__fields .form-group {
+  padding: 0;
+  margin: 0;
 }
 
 .request__input {
@@ -549,6 +563,7 @@ body {
   -o-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  height: auto;
 }
 
 .request__input:focus {
@@ -589,6 +604,7 @@ body {
   -moz-border-radius: 8px;
   border-radius: 8px;
   padding: 0;
+  height: auto;
 }
 
 .request__select input {
@@ -825,6 +841,10 @@ body {
     max-width: 60%;
   }
 
+  .cars__car:not(:first-child) {
+    display: none;
+  }
+
   .services__body, .request__body, .banner__body, .search__body {
     padding: 10px 0;
   }
@@ -880,6 +900,16 @@ body {
 
   .search__submit {
     padding: 13.5px 25px;
+  }
+
+  .custom-checkbox {
+    width: 20px;
+    height: 20px;
+  }
+
+  .custom-checkbox::before {
+    width: 10px;
+    height: 10px;
   }
 }
 

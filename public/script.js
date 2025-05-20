@@ -16,8 +16,10 @@ selects.forEach(select => {
     option.addEventListener('click', (event) => {
       const value = event.target.textContent
       valueLabel.textContent = value
+      select.setAttribute('value', value.trim())
       select.querySelector('input').value = value
       select.classList.toggle('remove')
+      select.closest('.form-group').classList.remove('has-error')
 
       if (valueLabel.textContent.trim().length) {
         placeholder.style.display = 'none'
@@ -114,7 +116,7 @@ const serviceItem = (service) => `
               </li>
               
               <li class="services__service services__row services__row-mob visible-block hidden-md hidden-lg">
-                <div class="row">
+                <div class="services__subrow row">
                   <div class="services__item col-xs-4">
                     <img src="${service.img}" alt="">
                   </div>
@@ -124,11 +126,11 @@ const serviceItem = (service) => `
                   </div>
 
                   <div class="services__item col-xs-4">
-                    <input id=${service.domain} type="checkbox" />
+                    <input class="custom-checkbox" id=${service.domain} type="checkbox" />
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="services__subrow row">
                   <div class="services__item col-xs-4">
                     <p>${service.days} дней</p>
                   </div>
@@ -150,13 +152,13 @@ function render(vin) {
   services.querySelector('[render]').innerHTML = ''
 
   photos.forEach(photo => {
-    cars.querySelector('[render]').innerHTML += carImg(photo)
+    cars.querySelector('[render]').insertAdjacentHTML('beforeend', carImg(photo));
   })
 
   document.querySelector('.services__code p').textContent = vin
 
   table.forEach(item => {
-    services.querySelector('[render]').innerHTML += serviceItem(item)
+    services.querySelector('[render]').insertAdjacentHTML('beforeend', serviceItem(item));
   })
 
   if (photos.length) {
@@ -169,24 +171,20 @@ function render(vin) {
     services.style.display = 'block'
     request.style.display = 'block'
 
-    setTimeout(() => {
-      document.querySelectorAll('.services__service input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
+    document.querySelectorAll('.services__service input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
 
-          if (checkbox.checked) {
-            selectServices.push(table[table.findIndex(i => i.domain === checkbox.id)])
-          } else {
-            selectServices = selectServices.filter(s => s.domain !== checkbox.id)
-          }
+        if (checkbox.checked) {
+          selectServices.push(table[table.findIndex(i => i.domain === checkbox.id)])
+        } else {
+          selectServices = selectServices.filter(s => s.domain !== checkbox.id)
+        }
 
-          document.querySelector('.request__title .count').textContent = `Выбрано ${selectServices.length} сайтов на сумму:`
-          document.querySelector('.request__title .price').textContent = `${selectServices.reduce((prev, curr) => prev + curr.price, 0)} USD`
-          document.querySelector('#select-all').checked = selectServices.length === table.length
-
-        })
+        document.querySelector('.request__title .count').textContent = `Выбрано ${selectServices.length} сайтов на сумму:`
+        document.querySelector('.request__title .price').textContent = `${selectServices.reduce((prev, curr) => prev + curr.price, 0)} USD`
+        document.querySelector('#select-all').checked = selectServices.length === table.length
       })
-    }, 200);
-
+    })
   } else {
     services.style.display = 'none'
     request.style.display = 'none'
@@ -209,3 +207,22 @@ document.querySelector('#select-all').addEventListener('change', (e) => {
   document.querySelector('.request__title .count').textContent = `Выбрано ${selectServices.length} сайтов на сумму:`
   document.querySelector('.request__title .price').textContent = `${selectServices.reduce((prev, curr) => prev + curr.price, 0)} USD`
 })
+
+document.querySelectorAll('.request__input').forEach(input => {
+  input.addEventListener('input', () => {
+    input.closest('.form-group').classList.remove('has-error')
+  })
+})
+
+function valid() {
+  document.querySelectorAll('.request__field[required]').forEach(field => {
+    if (
+      (field.value && !field.value.trim().length)
+      || !(field.getAttribute('value') && field.getAttribute('value').trim().length)) {
+      field.closest('.form-group').classList.add('has-error')
+    }
+  }
+  )
+}
+
+document.querySelector('.request__submit').addEventListener('click', valid)
