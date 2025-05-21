@@ -170,13 +170,9 @@ function render(vin) {
     services.querySelector('[render]').insertAdjacentHTML('beforeend', serviceItem(item));
   })
 
-  if (photos.length) {
-    cars.style.display = 'block'
-  } else {
-    cars.style.display = 'none'
-  }
 
   if (table.length) {
+    cars.style.display = 'block'
     services.style.display = 'block'
     request.style.display = 'block'
 
@@ -195,8 +191,10 @@ function render(vin) {
       })
     })
   } else {
+    cars.style.display = 'none'
     services.style.display = 'none'
     request.style.display = 'none'
+    empty.classList.remove('hidden')
   }
 }
 

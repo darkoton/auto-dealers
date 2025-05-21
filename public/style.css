@@ -950,6 +950,14 @@ body {
     width: 10px;
     height: 10px;
   }
+
+  .empty__block {
+    padding: 15px 10px;
+  }
+
+  .empty__text {
+    font-size: 25px;
+  }
 }
 
 /* ----------- Preloader ------------ */
