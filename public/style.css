@@ -827,6 +827,29 @@ body {
   outline: transparent !important;
 }
 
+.empty.hidden {
+  display: none;
+}
+
+.empty__body {
+  display: flex;
+  justify-content: center;
+}
+
+.empty__block {
+  padding: 25px 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fcf5e1;
+  width: 100%;
+  max-width: 450px;
+}
+
+.empty__text {
+  font-size: 30px;
+  text-align: center;
+}
+
 .custom-checkbox:disabled {
   cursor: not-allowed;
 }
@@ -906,6 +929,8 @@ body {
   .search__input {
     width: 250px;
     padding: 14.5px 25px;
+    border-width: 1px;
+    border-radius: 8px 8px 0 0;
   }
 
   .search__input:invalid {

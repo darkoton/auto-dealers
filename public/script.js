@@ -39,6 +39,7 @@ window.addEventListener('click', (e) => {
 
 ////////////////////////////////////////////
 
+const empty = document.querySelector('.empty')
 const cars = document.querySelector('.cars')
 const services = document.querySelector('.services__body')
 const request = document.querySelector('.request')
@@ -57,11 +58,13 @@ async function getData(e) {
   e.preventDefault();
 
   document.getElementById('page-preloader').classList.remove('hidden')
+  empty.classList.add('hidden')
 
   const vin = vinInput.value.trim();
 
   if (!vin) {
     document.getElementById('page-preloader').classList.add('hidden')
+    empty.classList.remove('hidden')
     vinInput.closest('.form-group').classList.add('has-error')
     return
   };
@@ -78,6 +81,7 @@ async function getData(e) {
 
   } catch (err) {
     vinInput.closest('.form-group').classList.add('has-error')
+    empty.classList.remove('hidden')
     document.getElementById('page-preloader').classList.add('hidden')
     console.error(err);
     cars.style.display = 'none'
